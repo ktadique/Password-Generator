@@ -94,7 +94,7 @@ var upperCasedCharacters = [
 //user clicks generate password
 
 //generator prompts options:
-//  password length
+// password length
 //   prompts for input
 //    password length must be between 10-64
 //    parse input into a number
@@ -124,10 +124,11 @@ let passUpperCase;
 let passNumeric;
 let passSpecial;
 
+// Function to prompt user for password length
 function getPasswordLength() {
   // do...while = executes the body of the loop first, then the while condition is evaluated
   do {
-    //parseint ensures that the input will always be a number
+    //parseInt ensures that the input will always be a number
     lengthInput = parseInt(
       prompt(
         "How many characters would you like your password to contain? (Must be between 10-64)"
@@ -140,7 +141,7 @@ function getPasswordLength() {
   //if above is true, the body of do statement is executed again
   //if not, loop stops.
 
-  /*   
+  /*
   //makes sure that the while loop runs at least once
   lengthInput = 0;
   while (lengthInput < 10 || lengthInput > 64) {
@@ -157,13 +158,17 @@ function getPasswordLength() {
 }
 
 // Function to prompt user for password options
-function getPasswordOptions() {}
-
-// if (passLength >= 10 && passLength <= 64) {
-//   return passLength;
-// } else {
-//   alert("Password must be up to 10-64 characters long.");
-// }
+function getPasswordOptions() {
+  do {
+    passLowerCase = confirm("Would you like to include lower case characters?");
+    passUpperCase = confirm("Would you like to include upper case characters?");
+    passNumeric = confirm("Would you like to include numbers?");
+    passSpecial = confirm("Would you like to include special characters?");
+    if (!passLowerCase && !passUpperCase && !passNumeric && !passSpecial) {
+      alert("You must have at least one type of character");
+    }
+  } while (!passLowerCase && !passUpperCase && !passNumeric && !passSpecial);
+}
 
 // Function for getting a random element from an array
 function getRandom(arr) {
@@ -176,9 +181,11 @@ function getRandom(arr) {
 }
 
 // Function to generate password with user input
-
 function generatePassword() {
   getPasswordLength();
+  getPasswordOptions();
+  console.log(lengthInput);
+  console.log(passLowerCase, passUpperCase, passNumeric, passSpecial);
 }
 
 //DO NOT TOUCH
