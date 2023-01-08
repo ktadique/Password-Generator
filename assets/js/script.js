@@ -118,10 +118,10 @@ var upperCasedCharacters = [
 //========================================================================
 
 let lengthInput = 0;
-let passLowerCase;
-let passUpperCase;
-let passNumeric;
-let passSpecial;
+let passLowerCase = false;
+let passUpperCase = false;
+let passNumeric = false;
+let passSpecial = false;
 
 // Function to prompt user for password length
 function getPasswordLength() {
@@ -167,14 +167,18 @@ function getRandom(arr) {
   return randomCharacter;
 }
 
-// Function to generate password with user input
-function generatePassword() {
-  getPasswordLength();
-  getPasswordOptions();
-  console.log(
-    `Password Length: ${lengthInput} Including: lowercase (${passLowerCase}), uppercase (${passUpperCase}), numbers (${passNumeric}), special (${passSpecial})`
-  );
+// Function to shuffle an array
+function shuffleArray(arr) {
+  for (var i = arr.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+  }
+  return arr;
+}
 
+function assemblePassword() {
   // Create an empty array which will contain the items from the selected options.
   let prejumble = [];
 
@@ -205,11 +209,21 @@ function generatePassword() {
       }
     }
   }
-  console.log(prejumble);
-  //Randomize the items inside the prejumble array.
-  getRandom(prejumble);
+  return prejumble;
+}
+
+// Function to generate password with user input:
+//Order of operation:
+function generatePassword() {
+  //Get password length
+  getPasswordLength();
+  //Get password options
+  getPasswordOptions();
+
+  //Get the assembled, prejumbled password
+  //Shuffle the password to ensure it is truly randomized
   //Merge the array into a string with no commas and return the final password.
-  return prejumble.join("");
+  return shuffleArray(assemblePassword()).join("");
 }
 
 //DO NOT TOUCH
