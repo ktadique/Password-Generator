@@ -134,10 +134,10 @@ function getPasswordLength() {
         "How many characters would you like your password to contain? (Must be between 10-64)"
       )
     );
-    if (lengthInput < 10 || lengthInput > 64) {
+    if (lengthInput < 10 || lengthInput > 64 || isNaN(lengthInput)) {
       alert("Password must be between 10-64 characters long.");
     }
-  } while (lengthInput < 10 || lengthInput > 64);
+  } while (lengthInput < 10 || lengthInput > 64 || isNaN(lengthInput));
   //if above is true, the body of do statement is executed again
   //if not, loop stops.
 
@@ -184,8 +184,40 @@ function getRandom(arr) {
 function generatePassword() {
   getPasswordLength();
   getPasswordOptions();
-  console.log(lengthInput);
-  console.log(passLowerCase, passUpperCase, passNumeric, passSpecial);
+  console.log(
+    `Password Length: ${lengthInput} Including: lowercase (${passLowerCase}), uppercase (${passUpperCase}), numbers (${passNumeric}), special (${passSpecial})`
+  );
+
+  // Create an empty array
+  let prejumble = [];
+
+  while (true) {
+    if (passLowerCase) {
+      prejumble.push(getRandom(lowerCasedCharacters));
+      if (prejumble.length === lengthInput) {
+        break;
+      }
+    }
+    if (passUpperCase) {
+      prejumble.push(getRandom(upperCasedCharacters));
+      if (prejumble.length === lengthInput) {
+        break;
+      }
+    }
+    if (passNumeric) {
+      prejumble.push(getRandom(numericCharacters));
+      if (prejumble.length === lengthInput) {
+        break;
+      }
+    }
+    if (passSpecial) {
+      prejumble.push(getRandom(specialCharacters));
+      if (prejumble.length === lengthInput) {
+        break;
+      }
+    }
+  }
+  console.log(prejumble);
 }
 
 //DO NOT TOUCH
