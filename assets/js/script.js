@@ -107,8 +107,7 @@ var upperCasedCharacters = [
 //  numerical
 // Validate:
 //  special characters
-//
-//    if none are selected another error message
+//  if none are selected another error message
 
 //  use math.random on all the options to randomly select a character
 //    use math.random to randomly position selected random characters
@@ -140,21 +139,6 @@ function getPasswordLength() {
   } while (lengthInput < 10 || lengthInput > 64 || isNaN(lengthInput));
   //if above is true, the body of do statement is executed again
   //if not, loop stops.
-
-  /*
-  //makes sure that the while loop runs at least once
-  lengthInput = 0;
-  while (lengthInput < 10 || lengthInput > 64) {
-    //parseint ensures that the input will always be a number
-    lengthInput = parseInt(
-      prompt(
-        "How many characters would you like your password to contain? (Must be between 10-64)"
-      )
-    );
-    if (lengthInput < 10 || lengthInput > 64) {
-      alert("Password must be between 10-64 characters long.");
-    }
-  }*/
 }
 
 // Function to prompt user for password options
@@ -164,10 +148,13 @@ function getPasswordOptions() {
     passUpperCase = confirm("Would you like to include upper case characters?");
     passNumeric = confirm("Would you like to include numbers?");
     passSpecial = confirm("Would you like to include special characters?");
+    //if no option is selected, error:
     if (!passLowerCase && !passUpperCase && !passNumeric && !passSpecial) {
       alert("You must have at least one type of character");
     }
   } while (!passLowerCase && !passUpperCase && !passNumeric && !passSpecial);
+  //if above is true, the body of do statement is executed again
+  //if not, loop stops.
 }
 
 // Function for getting a random element from an array
@@ -188,12 +175,13 @@ function generatePassword() {
     `Password Length: ${lengthInput} Including: lowercase (${passLowerCase}), uppercase (${passUpperCase}), numbers (${passNumeric}), special (${passSpecial})`
   );
 
-  // Create an empty array
+  // Create an empty array which will contain the items from the selected options.
   let prejumble = [];
 
   while (true) {
     if (passLowerCase) {
       prejumble.push(getRandom(lowerCasedCharacters));
+      //checks to see if the length of prejumble is as long as lengthinput, if true then stop
       if (prejumble.length === lengthInput) {
         break;
       }
@@ -218,6 +206,10 @@ function generatePassword() {
     }
   }
   console.log(prejumble);
+  //Randomize the items inside the prejumble array.
+  getRandom(prejumble);
+  //Merge the array into a string with no commas and return the final password.
+  return prejumble.join("");
 }
 
 //DO NOT TOUCH
