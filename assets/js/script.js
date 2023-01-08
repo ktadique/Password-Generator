@@ -167,7 +167,7 @@ function getRandom(arr) {
   return randomCharacter;
 }
 
-// Function to shuffle an array
+// Function to shuffle an array which I got on stack overflow which i tested and got the desired result.
 function shuffleArray(arr) {
   for (var i = arr.length - 1; i > 0; i--) {
     var j = Math.floor(Math.random() * (i + 1));
@@ -186,27 +186,19 @@ function assemblePassword() {
     if (passLowerCase) {
       prejumble.push(getRandom(lowerCasedCharacters));
       //checks to see if the length of prejumble is as long as lengthinput, if true then stop
-      if (prejumble.length === lengthInput) {
-        break;
-      }
+      if (prejumble.length === lengthInput) break;
     }
     if (passUpperCase) {
       prejumble.push(getRandom(upperCasedCharacters));
-      if (prejumble.length === lengthInput) {
-        break;
-      }
+      if (prejumble.length === lengthInput) break;
     }
     if (passNumeric) {
       prejumble.push(getRandom(numericCharacters));
-      if (prejumble.length === lengthInput) {
-        break;
-      }
+      if (prejumble.length === lengthInput) break;
     }
     if (passSpecial) {
       prejumble.push(getRandom(specialCharacters));
-      if (prejumble.length === lengthInput) {
-        break;
-      }
+      if (prejumble.length === lengthInput) break;
     }
   }
   return prejumble;
