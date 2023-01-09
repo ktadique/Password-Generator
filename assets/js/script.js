@@ -99,22 +99,28 @@ var upperCasedCharacters = [
 //    password length must be between 10-64
 //    parse input into a number
 //    if not error message (must be at least 10/can not be  more than 64)
-// Validate:
-//  lowercase
-// Validate:
-//  uppercase
-// Validate:
-//  numerical
-// Validate:
-//  special characters
-//  if none are selected another error message
+//Validate:
+// lowercase
+//   if yes/true, be included in password
+//Validate:
+// uppercase
+//   if yes/true, be included in password
+//Validate:
+// numerical
+//   if yes/true, be included in password
+//Validate:
+// special characters
+//   if yes/true, be included in password
+//if none are selected / all are false then error message
 
-//  use math.random on all the options to randomly select a character
+//  use math.random on all the options to randomly select a character from an array
 //    use math.random to randomly position selected random characters
 
-//generator creates password based on the selected options
-
-//create a jumbler at the end to randomize the output string
+//generator creates password based on the selected options:
+//  create an empty array that will contain all the chosen characters
+//    push randomly selected items from the options array using the random funtion into a new empty array
+//      pass new array through a shuffler at the end to truly randomize the items
+//        merge array items into a string with no commas to produce randomized password
 //========================================================================
 
 let lengthInput = 0;
@@ -122,6 +128,8 @@ let passLowerCase = false;
 let passUpperCase = false;
 let passNumeric = false;
 let passSpecial = false;
+let minChar = 10;
+let maxChar = 64;
 
 // Function to prompt user for password length
 function getPasswordLength() {
@@ -133,10 +141,14 @@ function getPasswordLength() {
         "How many characters would you like your password to contain? (Must be between 10-64)"
       )
     );
-    if (lengthInput < 10 || lengthInput > 64 || isNaN(lengthInput)) {
+    if (lengthInput < minChar || lengthInput > maxChar || isNaN(lengthInput)) {
       alert("Password must be between 10-64 characters long.");
     }
-  } while (lengthInput < 10 || lengthInput > 64 || isNaN(lengthInput));
+  } while (
+    lengthInput < minChar ||
+    lengthInput > maxChar ||
+    isNaN(lengthInput)
+  );
   //if above is true, the body of do statement is executed again
   //if not, loop stops.
 }
@@ -168,7 +180,7 @@ function getRandom(arr) {
 }
 
 // Function to shuffle an array which I got on stack overflow which i tested and got the desired result.
-function shuffleArray(arr) {
+function shufflePassword(arr) {
   for (var i = arr.length - 1; i > 0; i--) {
     var j = Math.floor(Math.random() * (i + 1));
     var temp = arr[i];
@@ -184,6 +196,7 @@ function assemblePassword() {
 
   while (true) {
     if (passLowerCase) {
+      //add an item at the end of the prejumble array, randomly from the lowercased array
       prejumble.push(getRandom(lowerCasedCharacters));
       //checks to see if the length of prejumble is as long as lengthinput, if true then stop
       if (prejumble.length === lengthInput) break;
@@ -212,10 +225,10 @@ function generatePassword() {
   //Get password options
   getPasswordOptions();
 
-  //Get the assembled, prejumbled password
-  //Shuffle the password to ensure it is truly randomized
+  //Get the prejumbled password array then
+  //Shuffle the prejumbled password array to ensure it is truly randomized then
   //Merge the array into a string with no commas and return the final password.
-  return shuffleArray(assemblePassword()).join("");
+  return shufflePassword(assemblePassword()).join("");
 }
 
 //DO NOT TOUCH
